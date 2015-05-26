@@ -3,7 +3,7 @@ Weird little virtual machine thing to search for convoluted derivations of a spe
 
 Input consists of a series of non-negative integers terminated by -1. 
 
-These numbers are places on a queue. At every step, a value is removed from the front of the queue. The value is then split into bitfield that select both the target machine and three microinstructions.
+These numbers are places on a queue. At every step, a value is removed from the front of the queue. The value is then split into bitfields that select both the target machine and three microinstructions.
 
 The least significant 8 bit specify which machine is targeted for modification.
 
@@ -35,4 +35,4 @@ A single step involved extracting one value from the queue, applying the three m
 
 ## Observations
 ```
-- All non-null inputs seems to produce results that don't cycle in the short term. We observe this by searching for a specifies string among the memory cells and halting when it occurs. For longer strings (6 characters or more) this process can take hundreds of thousands of simulation steps to produce.
+- All non-null inputs seems to produce results that don't cycle in the short term. We observe this by searching for a specified string among the memory cells and halting when it occurs. For longer strings (6 characters or more) this process can take hundreds of thousands of simulation steps to produce.
