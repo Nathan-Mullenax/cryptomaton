@@ -273,11 +273,14 @@ main( int argc, char **argv )
   curs_set(0);
   mpz_class j(0);
   bool found = false;
+  bool camera = true;
   while(!found)
     {
       //      std::cout << "Machine " << (n.bus.front()%256) << " gets ";
       //      std::cout << (n.bus.front()/256) << "\n";
-      n.display();
+      if( camera ) {
+	n.display();
+      }
       string s = n.compute_msg();
       move(18, 70);
       //print(s.c_str());
@@ -286,6 +289,10 @@ main( int argc, char **argv )
       if( s.find(msg) != string::npos )
 	{
 	  nodelay(stdscr,false);
+	  // need to redraw screen if camera is off.
+	  if( !camera ) {
+	    n.display();
+	  }
 	  print("FOUND!");
 	  std::size_t p = s.find(msg);
     
@@ -295,13 +302,23 @@ main( int argc, char **argv )
       n.step();    
       ++j;
       
-      move( 18, 52 );
-      print("Step: ");
-      print(j);
+      if( camera ) {
+	move( 18, 52 );
+	print("Step: ");
+	print(j);
+      }
 
       int c = getch();
-      if( c=='q' )
+      if( c=='q' ) {
 	break;
+      } else if ( c==' ' ) {
+	camera = !camera;
+	if( !camera ) {
+	  clear();
+	  move(0,0);
+	  print("Camera off. Press spacebar to reenable.");
+	}
+      }
     }
   
  
